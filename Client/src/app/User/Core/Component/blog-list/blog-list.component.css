@@ -1,0 +1,89 @@
+/* Tùy chỉnh cho section */
+.blog-section {
+  margin-top: 60px;
+}
+
+.blog-section {
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Card bài viết */
+.card {
+  border: 0;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: scale(1.03);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+.card-title {
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+  text-align: center;
+}
+
+.card-img-top {
+  height: 200px;
+  object-fit: cover;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+
+.blog-description {
+  display: -webkit-box;
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Ẩn nút điều khiển mặc định */
+.carousel-control-prev,
+.carousel-control-next {
+  opacity: 0;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  width: 30px;
+  height: 30px;
+  z-index: 1;
+}
+
+/* Nút hiện khi hover vào carousel */
+.carousel:hover .carousel-control-prev,
+.carousel:hover .carousel-control-next {
+  opacity: 1;
+}
+
+/* Tùy chỉnh nút bấm */
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  background-color: rgba(0, 0, 0, 0.6);
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  background-size: 12px 12px;
+}
+
+/* Đẩy nút sát rìa trái và phải */
+.carousel-control-prev {
+  left: 15px; /* Đẩy sát rìa ngoài */
+}
+
+.carousel-control-next {
+  right: 15px; /* Đẩy sát rìa ngoài */
+}
+
+/* Hover hiệu ứng nút */
+.carousel-control-prev:hover .carousel-control-prev-icon,
+.carousel-control-next:hover .carousel-control-next-icon {
+  background-color: rgba(0, 0, 0, 0.8);
+  transform: scale(1.2);
+}

@@ -1,0 +1,211 @@
+<div class="container my-5 section" *ngIf="cart$ | async as cart">
+  <form #form="ngForm" (ngSubmit)="onFormSubmit(form)" novalidate>
+    <div class="row section">
+      <!-- Form Thông tin thanh toán -->
+      <div class="col-lg-8">
+        <h4>THÔNG TIN THANH TOÁN</h4>
+
+        <div class="mb-3">
+          <label for="fullName" class="form-label">Họ và tên *</label>
+          <input
+            [(ngModel)]="orderData.receiverName"
+            name="fullName"
+            type="text"
+            class="form-control"
+            id="fullName"
+            required
+            #fullName="ngModel"
+          />
+          <div
+            *ngIf="fullName.invalid && (fullName.touched || form.submitted)"
+            class="text-danger"
+          >
+            Họ và tên không được để trống.
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label for="phone" class="form-label">Số điện thoại *</label>
+            <input
+              [(ngModel)]="orderData.receiverPhone"
+              name="phone"
+              type="text"
+              class="form-control"
+              id="phone"
+              required
+              #phone="ngModel"
+            />
+            <div
+              *ngIf="phone.invalid && (phone.touched || form.submitted)"
+              class="text-danger"
+            >
+              Số điện thoại không được để trống.
+            </div>
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="ward" class="form-label">Xã/Phường *</label>
+            <input
+              [(ngModel)]="orderData.ward"
+              name="ward"
+              type="text"
+              class="form-control"
+              id="ward"
+              required
+              #ward="ngModel"
+            />
+            <div
+              *ngIf="ward.invalid && (ward.touched || form.submitted)"
+              class="text-danger"
+            >
+              Xã/Phường không được để trống.
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label for="district" class="form-label">Quận/Huyện *</label>
+            <input
+              [(ngModel)]="orderData.district"
+              name="district"
+              type="text"
+              class="form-control"
+              id="district"
+              required
+              #district="ngModel"
+            />
+            <div
+              *ngIf="district.invalid && (district.touched || form.submitted)"
+              class="text-danger"
+            >
+              Quận/Huyện không được để trống.
+            </div>
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="city" class="form-label">Tỉnh/Thành phố *</label>
+            <input
+              [(ngModel)]="orderData.city"
+              name="city"
+              type="text"
+              class="form-control"
+              id="city"
+              required
+              #city="ngModel"
+            />
+            <div
+              *ngIf="city.invalid && (city.touched || form.submitted)"
+              class="text-danger"
+            >
+              Tỉnh/Thành phố không được để trống.
+            </div>
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="address" class="form-label">Địa chỉ *</label>
+          <input
+            [(ngModel)]="orderData.receiverAddress"
+            name="address"
+            type="text"
+            class="form-control"
+            id="address"
+            required
+            #address="ngModel"
+          />
+          <div
+            *ngIf="address.invalid && (address.touched || form.submitted)"
+            class="text-danger"
+          >
+            Địa chỉ không được để trống.
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="notes" class="form-label">Thông tin bổ sung</label>
+          <textarea
+            [(ngModel)]="orderData.notes"
+            name="notes"
+            class="form-control"
+            id="notes"
+            rows="3"
+            placeholder="Ghi chú đơn hàng (tùy chọn)"
+          ></textarea>
+        </div>
+      </div>
+
+      <!-- Đơn hàng của bạn -->
+      <div class="col-lg-4 mt-4">
+        <h4>ĐƠN HÀNG CỦA BẠN</h4>
+        <div class="card">
+          <div class="card-body">
+            <h6>SẢN PHẨM</h6>
+            <hr />
+            <div *ngFor="let item of cart.items">
+              <div class="row">
+                <div class="col-8">
+                  <span style="font-size: 14px"
+                    >{{ item.productName }} - {{ item.size }} ×
+                    {{ item.quantity }}</span
+                  >
+                </div>
+                <div class="col-4 text-end">
+                  <span>{{ item.price * item.quantity | number }} VNĐ</span>
+                </div>
+              </div>
+            </div>
+            <hr />
+            <div class="d-flex justify-content-between">
+              <span>Tạm tính</span>
+              <span>{{ total | number }} VNĐ</span>
+            </div>
+            <hr />
+            <div class="d-flex justify-content-between">
+              <strong>Tổng</strong>
+              <strong>{{ total | number }} VNĐ</strong>
+            </div>
+            <hr />
+            <div *ngIf="payment$ | async as payments">
+              <div class="form-check mt-3" *ngFor="let payment of payments">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  name="paymentMethod"
+                  [id]="payment.paymentId"
+                  [(ngModel)]="orderData.paymentId"
+                  [value]="payment.paymentId"
+                  required
+                  #paymentMethod="ngModel"
+                />
+                <label class="form-check-label" [for]="payment.paymentId">
+                  {{ payment.paymentMethod }}
+                </label>
+                <div
+                  *ngIf="
+                    paymentMethod.invalid &&
+                    (paymentMethod.touched || form.submitted)
+                  "
+                  class="text-danger mt-2"
+                >
+                  Vui lòng chọn phương thức thanh toán.
+                </div>
+              </div>
+            </div>
+
+            <!-- <div class="text-center mt-3">
+              <img
+                src="https://via.placeholder.com/150"
+                alt="QR Code"
+                class="img-fluid"
+              />
+            </div> -->
+            <button
+              type="submit"
+              class="btn btn-primary w-100 mt-3 border-0"
+              style="background-color: #d26e4b; color: #fff"
+              [disabled]="form.invalid"
+            >
+              ĐẶT HÀNG
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

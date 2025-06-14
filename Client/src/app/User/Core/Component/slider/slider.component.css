@@ -1,0 +1,32 @@
+/* Ẩn nút control mặc định */
+.carousel-control-prev,
+.carousel-control-next {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+/* Hiện nút control khi hover vào slider */
+.carousel:hover .carousel-control-prev,
+.carousel:hover .carousel-control-next {
+  opacity: 1;
+}
+
+/* Tùy chỉnh nút control */
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  background-color: rgba(0, 0, 0, 0.5); /* Nền đen trong suốt */
+  border-radius: 50%;
+  padding: 10px;
+  width: 40px;
+  height: 40px;
+  background-size: 20px 20px;
+}
+
+/* Điều chỉnh vị trí nút control */
+.carousel-control-prev {
+  left: 10px; /* Cách mép trái */
+}
+
+.carousel-control-next {
+  right: 10px; /* Cách mép phải */
+}

@@ -1,0 +1,78 @@
+# Build results
+bin/
+obj/
+*.dll
+*.pdb
+*.exe
+
+# User-specific files
+*.rsuser
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Visual Studio working folder
+.vs/
+
+# Rider working folder
+.idea/
+
+# ASP.NET Scaffolding
+.scaffolding/
+
+# VS Code settings
+.vscode/
+
+# Packages
+*.nupkg
+*.snupkg
+packages/
+.nuget/
+
+# Logs
+*.log
+*.tlog
+*.ide.log
+
+# Auto-generated files
+Generated_Code/
+*.cache
+*.csproj.user
+*.csproj.nuget.dgspec.json
+project.lock.json
+
+# Configuration
+appsettings*.json
+
+# Database files
+*.mdf
+*.ldf
+
+# Publish output
+publish/
+wwwroot/
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Dependencies
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Resharper files
+_ReSharper*/
+
+# image files
+*.png
+*.jpg
+*.jpeg
+
+
+# migration 
+
+ShoesStoreApp.DAL/Migrations/

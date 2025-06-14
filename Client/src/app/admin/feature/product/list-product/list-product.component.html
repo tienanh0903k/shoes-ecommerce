@@ -1,0 +1,40 @@
+<div class="container">
+  <div class="topcontent">
+    <p id="title">List Product</p>
+    <div class="search">
+      <input type="text" placeholder="Search..." />
+      <div class="imgSearch">
+        <i class="fa-solid fa-magnifying-glass"></i>
+      </div>
+    </div>
+    <button class="btn btn-success" (click)="addProduct()">Add product</button>
+    <button class="btn btn-success" (click)="addSize()">Add Size</button>
+  </div>
+
+  <ng-container *ngIf="products$ | async as products">
+    <table>
+      <tr>
+        <th>Product Image</th>
+        <th>Product Name</th>
+        <th>Price</th>
+        <th>Status</th>
+        <th>Action</th>
+      </tr>
+      <tr *ngFor="let product of products">
+        <td><img [src]="urlImage + product.productImage" alt="" /></td>
+        <td>{{ product.productName }}</td>
+        <td>{{ product.price }}$</td>
+        <td>{{ product.status }}</td>
+        <td class="action">
+          <button
+            class="btn btn-primary"
+            (click)="updateProduct(product.productId)"
+          >
+            Update
+          </button>
+          <button class="btn btn-danger ms-2">Delete</button>
+        </td>
+      </tr>
+    </table>
+  </ng-container>
+</div>

@@ -1,0 +1,32 @@
+<div class="container">
+  <div class="topcontent">
+    <p id="title">List Brand</p>
+
+    <button class="btn btn-success" (click)="addBrand()">Add Brand</button>
+  </div>
+
+  <ng-container *ngIf="brands$ | async as brands">
+    <table>
+      <tr>
+        <th>Brand Image</th>
+        <th>Brand Name</th>
+        <th>Action</th>
+      </tr>
+      <tr *ngFor="let brand of brands">
+        <td><img [src]="urlImage + brand.brandImage" alt="" /></td>
+        <td>{{ brand.brandName }}</td>
+        <td class="action">
+          <button class="btn btn-primary" (click)="updateBrand(brand.brandId)">
+            Update
+          </button>
+          <button
+            class="btn btn-danger ms-2"
+            (click)="deleteBrand(brand.brandId)"
+          >
+            Delete
+          </button>
+        </td>
+      </tr>
+    </table>
+  </ng-container>
+</div>

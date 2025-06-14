@@ -1,0 +1,91 @@
+<div class="container">
+  <H1>Add Product</H1>
+
+  <form
+    #ngForm="ngForm"
+    class="d-flex justify-content-center"
+    (submit)="onFormSubmit()"
+  >
+    <div class="mt-2">
+      <div class="mt-3">
+        <label for="productName" class="form-lable">Product Name</label>
+        <input
+          type="text"
+          id="productName"
+          name="productName"
+          class="form-control"
+          [(ngModel)]="model.productName"
+        />
+      </div>
+
+      <div class="mt-3">
+        <label for="price" class="form-lable">price</label>
+        <input
+          type="text"
+          id="price"
+          name="price"
+          class="form-control"
+          [(ngModel)]="model.price"
+        />
+      </div>
+
+      <div class="mt-3">
+        <label for="Brand" class="form-lable">Brand</label>
+        <select
+          name="brandId"
+          id="brandId"
+          [(ngModel)]="model.brandId"
+          class="form-control"
+        >
+          <ng-container *ngIf="brand$ | async as brandsbrands">
+            <option
+              *ngFor="let brand of brandsbrands"
+              value="{{ brand.brandId }}"
+            >
+              {{ brand.brandName }}
+            </option>
+          </ng-container>
+        </select>
+      </div>
+
+      <div class="mt-3">
+        <label for="Description" class="form-lable">Description</label>
+        <textarea
+          id="description"
+          name="description"
+          class="form-control"
+          rows="5"
+          [(ngModel)]="model.description"
+        ></textarea>
+      </div>
+
+      <div class="addProduct">
+        <p>Choose image</p>
+        <input
+          type="file"
+          id="fileInput"
+          accept="image/*"
+          (change)="onFileSelected($event)"
+        />
+      </div>
+
+      <select
+        name="questionId"
+        id="questionId"
+        [(ngModel)]="model.status"
+        class="form-control mt-3"
+        (change)="onClick($event)"
+      >
+        <ng-container>
+          <option value="1">Active</option>
+          <option value="0">Block</option>
+        </ng-container>
+      </select>
+      <div>
+        <button class="btnAddProduct btn btn-primary mt-3" type="submit">
+          Add product
+        </button>
+      </div>
+    </div>
+  </form>
+</div>

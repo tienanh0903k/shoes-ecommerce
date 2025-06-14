@@ -1,0 +1,84 @@
+<div class="nav-bar navbar-light bg-light sticky-header">
+  <div class="nav-container d-flex justify-content-between align-items-center">
+    <!-- Logo -->
+    <div class="navbar-left flex-fill">
+      <a href="/" class="navbar-brand">
+        <img src="assets/Images/logo.webp" alt="Logo" />
+      </a>
+    </div>
+
+    <!-- Menu trung tâm -->
+    <div class="navbar-center text-center flex-fill">
+      <ul
+        class="navbar-nav d-flex flex-row justify-content-between text-uppercase"
+      >
+        <li class="nav-item mx-2">
+          <a class="nav-link active" [routerLink]="'/'">Trang Chủ</a>
+        </li>
+        <li class="nav-item mx-2">
+          <a class="nav-link" [routerLink]="'/shop'">Giày Nam</a>
+        </li>
+        <li class="nav-item mx-2">
+          <a class="nav-link" [routerLink]="'/shop'">Giày Nữ</a>
+        </li>
+        <li class="nav-item mx-2">
+          <a class="nav-link" href="#">Phụ Kiện</a>
+        </li>
+        <li class="nav-item mx-2">
+          <a class="nav-link" [routerLink]="'/blog'">Blog</a>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Tài khoản -->
+    <div class="navbar-right text-right flex-fill">
+      <ng-container *ngIf="user; else guest">
+        <div class="dropdown">
+          <a href="#" class="me-3"><i class="bi bi-search"></i></a>
+          <a [routerLink]="'/cart'" class="me-3 position-relative"
+            ><i class="bi bi-cart" style="padding-right: 10px"></i>
+            <!-- <span
+              class="position-absolute top-0 end-0 translate-middle badge rounded-pill bg-danger"
+              style="font-size: 10px; padding: 5px 7px"
+            >
+              {{ cartCount }}
+            </span> -->
+          </a>
+          <span
+            class="dropdown-toggle"
+            id="userDropdown"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            <img
+              [src]="
+                urlImage + user.avatar || 'https://via.placeholder.com/150'
+              "
+              alt="Avatar"
+              class="img-fluid rounded-circle border"
+              style="width: 30px; height: 30px; object-fit: cover"
+            />
+          </span>
+          <ul class="dropdown-menu" aria-labelledby="userDropdown">
+            <li class="li-name">{{ user.fullName }}</li>
+            <li>
+              <a class="dropdown-item" [routerLink]="'/user/' + user.id">
+                Quản lý thông tin
+              </a>
+            </li>
+            <li>
+              <a class="dropdown-item" (click)="logout()">Đăng xuất</a>
+            </li>
+          </ul>
+        </div>
+      </ng-container>
+
+      <!-- Nếu người dùng chưa đăng nhập -->
+      <ng-template #guest>
+        <a href="#" class="me-3"><i class="bi bi-search"></i></a>
+        <a [routerLink]="'/login'" class="me-3"><i class="bi bi-cart"></i></a>
+        <a [routerLink]="'/login'" class="me-3"><i class="bi bi-person"></i></a>
+      </ng-template>
+    </div>
+  </div>
+</div>

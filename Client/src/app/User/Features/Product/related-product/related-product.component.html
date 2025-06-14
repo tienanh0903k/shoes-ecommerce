@@ -1,0 +1,61 @@
+<div class="container mt-4 mb-4">
+  <h4 class="text-center mb-4">SẢN PHẨM TƯƠNG TỰ</h4>
+  <div id="productCarousel" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-inner">
+      <div
+        *ngFor="let chunk of chunkedProducts; let i = index"
+        class="carousel-item"
+        [class.active]="i === 0"
+      >
+        <div class="row row-cols-1 row-cols-md-4 g-4 cursor-pointer">
+          <div *ngFor="let product of chunk" class="col">
+            <div class="card h-100">
+              <img
+                [src]="urlImage + product.productImage"
+                class="card-img-top"
+                alt="{{ product.productName }}"
+                [routerLink]="['/product', product.productId]"
+              />
+              <div class="card-body pb-0">
+                <h6
+                  class="card-title"
+                  [routerLink]="['/product', product.productId]"
+                >
+                  {{ product.productName }}
+                </h6>
+                <p class="text-muted">{{ product.brandName }}</p>
+              </div>
+
+              <div
+                class="card-footer text-center d-flex justify-content-between align-items-center"
+              >
+                <h6 class="text-danger">{{ product.price | number }} VNĐ</h6>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <button
+        class="carousel-control-prev"
+        type="button"
+        data-bs-target="#productCarousel"
+        data-bs-slide="prev"
+        [hidden]="chunkedProducts.length <= 1"
+      >
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button
+        class="carousel-control-next"
+        type="button"
+        data-bs-target="#productCarousel"
+        data-bs-slide="next"
+        [hidden]="chunkedProducts.length <= 1"
+      >
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+    </div>
+  </div>
+</div>

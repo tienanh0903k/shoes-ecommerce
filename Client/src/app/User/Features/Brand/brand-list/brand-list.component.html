@@ -1,0 +1,38 @@
+<div class="container my-5">
+  <div class="row text-center">
+    <div class="col">
+      <h3 class="mb-4">Thương Hiệu</h3>
+    </div>
+  </div>
+
+  <div
+    *ngFor="let row of displayedBrands"
+    class="row justify-content-center mb-3"
+  >
+    <div
+      *ngFor="let brand of row"
+      class="col-6 col-sm-4 col-md-2 text-center d-flex justify-content-center"
+    >
+      <div
+        class="border rounded d-flex align-items-center justify-content-center"
+        style="width: 200px; height: 100px"
+      >
+        <img
+          [src]="urlImage + brand.brandImage"
+          alt="Brand Image"
+          style="height: 100%; object-fit: contain"
+        />
+      </div>
+    </div>
+  </div>
+
+  <div class="text-center mt-4">
+    <button
+      class="btn btn-primary"
+      (click)="loadMore()"
+      *ngIf="hasMore || displayedBrands.length * groupSize < brands.length"
+    >
+      Xem thêm
+    </button>
+  </div>
+</div>

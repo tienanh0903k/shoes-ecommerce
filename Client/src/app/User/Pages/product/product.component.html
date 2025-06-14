@@ -1,0 +1,8 @@
+<div class="section">
+  <app-product-detail [product]="product" [sizes]="sizes"></app-product-detail>
+  <app-product-description [product]="product"></app-product-description>
+  <app-related-product
+    *ngIf="product"
+    [product]="product"
+  ></app-related-product>
+</div>

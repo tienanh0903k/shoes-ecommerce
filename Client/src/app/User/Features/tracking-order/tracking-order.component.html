@@ -1,0 +1,87 @@
+<div class="container">
+  <div class="row section">
+    <!-- Main Content -->
+    <div class="col-md-12">
+      <h5>Đơn hàng</h5>
+      <table class="table table-bordered mt-3">
+        <thead class="table-light">
+          <tr>
+            <th>Mã đơn</th>
+            <th>Sản phẩm</th>
+            <th>Thành tiền</th>
+            <th>Trạng thái</th>
+          </tr>
+        </thead>
+        <tbody *ngIf="orders$ | async as orders">
+          <tr *ngFor="let order of orders">
+            <td class="align-middle" style="width: 330px">
+              {{ order.orderId }}
+            </td>
+            <!-- <td class="text-center align-middle">
+              <div *ngFor="let item of order.items">
+                <div class="d-flex align-items-center">
+                  <img [src]="item.productImage" alt="Product" class="me-2" width="50" />
+                  <span>{{ item.productName }} - {{item.size}} x {{item.quantity}}</span>
+                </div>
+              </div>
+            </td> -->
+            <td>
+              <div class="order-items">
+                <div
+                  *ngFor="let item of order.items"
+                  class="d-flex align-items-start"
+                >
+                  <!-- Hình ảnh sản phẩm -->
+                  <img
+                    [src]="urlImage + item.productImage"
+                    alt="Product"
+                    class="me-3 rounded"
+                    style="width: 60px; height: 60px; object-fit: contain"
+                  />
+
+                  <!-- Thông tin sản phẩm -->
+                  <div class="flex-grow-1">
+                    <h6 class="mb-1 text-truncate" style="max-width: 200px">
+                      {{ item.productName }}
+                    </h6>
+                    <small class="text-muted"
+                      >{{ item.size }} x {{ item.quantity }}</small
+                    >
+                  </div>
+
+                  <!-- Giá sản phẩm
+                  <div class="text-end">
+                    <small class="text-decoration-line-through text-muted d-block">{{ item.price | currency }}</small>
+                    <span class="fw-bold text-danger">{{ item.price * item.quantity | currency }}</span>
+                  </div> -->
+                </div>
+              </div>
+            </td>
+
+            <td class="text-center align-middle">
+              {{ order.total | number }} VNĐ
+            </td>
+            <td class="text-center align-middle">
+              <!-- <span class="badge" [ngClass]="{
+                'bg-success': order.status === 'Đã giao',
+                'bg-warning': order.status === 'Đang giao'
+              }">
+              {{ order.status }}</span> -->
+              <span
+                class="badge"
+                [ngClass]="{
+                  'bg-success': order.isPayment === true,
+                  'bg-warning': order.isPayment === false
+                }"
+              >
+                {{
+                  order.isPayment === true ? "Đã thanh toán" : "Chưa thanh toán"
+                }}
+              </span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

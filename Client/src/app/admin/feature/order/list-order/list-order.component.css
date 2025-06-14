@@ -1,0 +1,39 @@
+.container{
+    width: 1260px;
+    margin-left: 250px;
+    padding: 0;
+    margin-top: 61px;
+    padding-top: 20px;
+    padding-left: 30px;
+    padding-right: 20px;
+}
+.container>p{
+    color: black;
+    margin-bottom: 0;
+    font-weight: bold;
+    font-size: 22px;
+}
+table{
+    width: 100%;
+    padding-left: 30px;
+    margin-top: 20px;
+}
+td:nth-child(1){
+    width: 180px;
+}
+td:nth-child(2){
+    width: 300px;
+}
+
+td:nth-child(4){
+    width: 180px;
+}
+td:nth-child(5){
+    width: 100px;
+}
+td,th,table{
+    border: 1px solid black;
+}
+td,th{
+    padding: 10px;
+}

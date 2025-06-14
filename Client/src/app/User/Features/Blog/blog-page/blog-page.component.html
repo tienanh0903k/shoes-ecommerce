@@ -1,0 +1,49 @@
+<div class="section-blogList">
+  <div class="container mt-4">
+    <div class="row">
+      <div class="col-md-12 mb-4" *ngFor="let blog of blogs">
+        <div class="card h-100">
+          <div class="row g-0" (click)="viewBlogDetail(blog.blogId)">
+            <div class="col-4">
+              <img
+                [src]="urlImage + blog.blogImage"
+                class="img-fluid rounded-start img-blog"
+                alt="Article Image"
+              />
+            </div>
+            <div class="col-8">
+              <div class="card-body">
+                <h5 class="card-title">{{ blog.title }}</h5>
+                <p class="card-text">
+                  <small class="text-muted">
+                    {{ blog.createdDate | date : "dd-MM-yyyy HH:mm" }}
+                  </small>
+                </p>
+                <p class="card-text blog-description">
+                  {{ blog.description }}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pagination -->
+    <nav class="pagination-container mt-4">
+      <ul class="pagination justify-content-center">
+        <li
+          class="page-item"
+          *ngFor="let page of [].constructor(totalPages); let i = index"
+        >
+          <a
+            class="page-link"
+            [ngClass]="{ active: pageIndex === i + 1 }"
+            (click)="onPageChange(i + 1)"
+            >{{ i + 1 }}</a
+          >
+        </li>
+      </ul>
+    </nav>
+  </div>
+</div>

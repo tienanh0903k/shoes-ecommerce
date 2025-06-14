@@ -1,0 +1,28 @@
+<div class="container">
+    <div class="topcontent">
+        <p id="title">List Blog</p>
+        <div class="search">
+            
+        </div>
+        <button class="btn btn-success" (click)="addBlog()">Add Blog</button>
+    </div>
+
+    <ng-container *ngIf="blogs$ | async as blogs">
+        <table>
+            <tr>
+                <th>Blog Image</th>
+                <th>Product Name</th>
+                <th>Action</th>
+            </tr>
+            <tr *ngFor="let blog of blogs">
+                <td><img src="{{blog.blogImage}}" alt=""></td>
+                <td>{{blog.title}}</td>
+                <td class="action">
+                    <button class="btn btn-primary" (click)="updateBlog(blog.blogId)">Update</button>
+                    <button class="btn btn-danger ms-2" (click)="deleteBlog(blog.blogId)">Delete</button>
+                </td>
+            </tr>
+
+        </table>
+    </ng-container>
+</div>

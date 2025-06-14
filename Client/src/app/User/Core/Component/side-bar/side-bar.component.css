@@ -1,0 +1,49 @@
+/* Sidebar container */
+.sidebar {
+  width: 250px;
+  border-right: 1px solid #ddd;
+  height: 100vh;
+  overflow-y: auto;
+}
+
+.box {
+  padding-bottom: 30px;
+  border-bottom: 1px solid #d9d9d9;
+}
+
+.color-box button {
+  border: none;
+}
+
+.color-item {
+  width: 50px;
+}
+/* Color circle */
+.color-circle {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: inline-block;
+}
+
+.color-circle:hover {
+  opacity: 0.8;
+  border: 2px solid #000;
+}
+
+/* Customize buttons and labels */
+.btn {
+  font-size: 12px;
+  padding: 4px 8px;
+  text-align: center;
+}
+
+h5,
+h6 {
+  font-weight: bold;
+}
+
+.sidebar .form-check-label {
+  margin-left: 5px;
+}

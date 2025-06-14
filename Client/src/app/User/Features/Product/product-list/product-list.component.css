@@ -1,0 +1,57 @@
+.card {
+  border: none;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.card-img-top {
+  object-fit: contain;
+  height: 200px;
+  width: 100%;
+  border-radius: 8px;
+}
+
+.card-body {
+  padding: 16px 8px;
+}
+
+.card-title {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.card-text {
+  font-size: 14px;
+  font-weight: bold;
+  color: #333;
+  display: inline-flex;
+  align-items: center;
+}
+
+.currency-symbol {
+  margin-left: 2px;
+  font-size: 14px;
+}
+
+.btn {
+  width: 50px;
+  font-size: 20px;
+  background-color: transparent;
+  border: none;
+  color: black;
+}
+
+.pagination-container {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.pagination .page-item {
+  cursor: pointer;
+}
+
+.pagination .active .page-link {
+  background-color: #007bff;
+  color: white;
+}

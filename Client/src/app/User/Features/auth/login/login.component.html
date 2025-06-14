@@ -1,0 +1,87 @@
+<section class="login-section">
+  <div class="container mt-5">
+    <div class="row justify-content-center">
+      <div class="col-md-4">
+        <div class="card shadow-lg">
+          <div class="card-body">
+            <h4 class="card-title text-center mb-4">Đăng Nhập</h4>
+
+            <form #loginForm="ngForm" (ngSubmit)="onFormSubmit()">
+              <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input
+                  type="email"
+                  class="form-control"
+                  id="email"
+                  name="email"
+                  class="form-control"
+                  [(ngModel)]="model.email"
+                  #emailCtrl="ngModel"
+                  placeholder="Nhập email của bạn"
+                  required
+                  pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+                />
+                <div
+                  *ngIf="emailCtrl.invalid && emailCtrl.touched"
+                  class="text-danger"
+                >
+                  <div *ngIf="emailCtrl.errors?.['required']">
+                    Email không được để trống.
+                  </div>
+                  <div *ngIf="emailCtrl.errors?.['pattern']">
+                    Email không hợp lệ.
+                  </div>
+                </div>
+              </div>
+
+              <div class="mb-3">
+                <label for="password" class="form-label">Mật khẩu</label>
+                <input
+                  type="password"
+                  class="form-control"
+                  id="password"
+                  name="password"
+                  class="form-control"
+                  [(ngModel)]="model.password"
+                  #passwordCtrl="ngModel"
+                  placeholder="Nhập mật khẩu của bạn"
+                  required
+                  minlength="8"
+                />
+                <div
+                  *ngIf="passwordCtrl.invalid && passwordCtrl.touched"
+                  class="text-danger"
+                >
+                  <div *ngIf="passwordCtrl.errors?.['required']">
+                    Mật khẩu không được để trống.
+                  </div>
+                  <div *ngIf="passwordCtrl.errors?.['minlength']">
+                    Mật khẩu phải có ít nhất 8 ký tự.
+                  </div>
+                </div>
+              </div>
+
+              <div class="d-grid">
+                <button
+                  type="submit"
+                  class="btn btn-primary"
+                  [disabled]="loginForm.invalid || loading"
+                >
+                  <span
+                    *ngIf="loading"
+                    class="spinner-border spinner-border-sm me-2"
+                  ></span>
+                  Đăng Nhập
+                </button>
+              </div>
+            </form>
+
+            <div class="text-center mt-3">
+              <p>Chưa có tài khoản? <a href="/register">Đăng ký ngay</a></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

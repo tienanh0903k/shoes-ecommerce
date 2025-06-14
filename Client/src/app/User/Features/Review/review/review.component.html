@@ -1,0 +1,67 @@
+<div class="row">
+  <!-- Danh sách đánh giá -->
+  <div class="col-md-6">
+    <div *ngFor="let review of reviews" class="mb-3">
+      <div class="d-flex align-items-center">
+        <img
+          src="https://via.placeholder.com/50"
+          alt="User Avatar"
+          class="rounded-circle me-2"
+        />
+        <div>
+          <strong>{{ review.fullName }}</strong>
+          <p class="text-muted mb-1">{{ formatDate(review.createdDate) }}</p>
+          <span *ngFor="let star of [].constructor(5); let i = index">
+            <i
+              class="bi"
+              [ngClass]="
+                i < review.rating ? 'bi-star-fill text-warning' : 'bi-star'
+              "
+            ></i>
+          </span>
+          <p class="mb-0">{{ review.reviewText }}</p>
+        </div>
+      </div>
+      <div></div>
+    </div>
+    <button
+      class="btn btn-secondary btn-sm"
+      *ngIf="showLoadMore"
+      (click)="loadMore()"
+    >
+      Xem thêm
+    </button>
+  </div>
+
+  <div class="col-md-6">
+    <div class="d-flex align-items-center mb-3">
+      <img
+        src="https://via.placeholder.com/50"
+        alt="User Avatar"
+        class="rounded-circle me-2"
+      />
+      <strong>{{ user?.fullName }}</strong>
+    </div>
+    <div *ngIf="userReviewed" class="mt-3">
+      <p class="text-center">You have already rated this product!</p>
+    </div>
+    <div *ngIf="!userReviewed" class="mt-3">
+      <div class="mb-2">
+        <span *ngFor="let star of [].constructor(5); let i = index">
+          <i
+            class="bi"
+            [ngClass]="i < userRating ? 'bi-star-fill text-warning' : 'bi-star'"
+            (click)="setRating(i + 1)"
+            style="cursor: pointer"
+          ></i>
+        </span>
+      </div>
+      <textarea
+        class="form-control mb-2"
+        placeholder="Viết bình luận về sản phẩm tại đây"
+        [(ngModel)]="userComment"
+      ></textarea>
+      <button class="btn btn-success" (click)="submitReview()">Gửi</button>
+    </div>
+  </div>
+</div>

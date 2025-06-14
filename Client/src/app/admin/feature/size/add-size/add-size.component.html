@@ -1,0 +1,70 @@
+<div class="container">
+  <H1>Add Size</H1>
+
+  <form
+    #ngForm="ngForm"
+    class="d-flex justify-content-center"
+    (submit)="onFormSubmit()"
+  >
+    <div class="mt-2">
+      <div class="mt-3">
+        <label for="sizeName" class="form-lable">Size Name</label>
+        <input
+          type="text"
+          id="SizeName"
+          name="sizeName"
+          class="form-control"
+          [(ngModel)]="size.sizeName"
+        />
+      </div>
+
+      <div class="mt-3">
+        <label for="quantity" class="form-lable">quantity</label>
+        <input
+          type="text"
+          id="quantity"
+          name="quantity"
+          class="form-control"
+          [(ngModel)]="size.quantity"
+        />
+      </div>
+
+      <div class="mt-3">
+        <label for="Brand" class="form-lable">product</label>
+        <select
+          name="brandId"
+          id="brandId"
+          [(ngModel)]="size.productId"
+          class="form-control"
+        >
+          <ng-container *ngIf="product$ | async as products">
+            <option
+              *ngFor="let product of products"
+              value="{{ product.productId }}"
+            >
+              {{ product.productName }}
+            </option>
+          </ng-container>
+        </select>
+      </div>
+
+      <select
+        name="questionId"
+        id="questionId"
+        [(ngModel)]="size.status"
+        class="form-control mt-3"
+        (change)="onClick($event)"
+      >
+        <ng-container>
+          <option value="1">Active</option>
+          <option value="0">Block</option>
+        </ng-container>
+      </select>
+      <div>
+        <button class="btnAddSize btn btn-primary mt-3" type="submit">
+          Add Size
+        </button>
+      </div>
+    </div>
+  </form>
+</div>

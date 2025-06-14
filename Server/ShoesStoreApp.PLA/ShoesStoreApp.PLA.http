@@ -1,0 +1,6 @@
+@ShoesStoreApp.PLA_HostAddress = http://localhost:5179
+
+GET {{ShoesStoreApp.PLA_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

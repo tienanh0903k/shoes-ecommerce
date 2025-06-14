@@ -1,0 +1,61 @@
+<div class="container blog-section">
+  <h4 class="text-center mb-4">Blog</h4>
+  <div id="blogCarousel" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-inner">
+      <div
+        *ngFor="let chunk of chunkedBlogs; let i = index"
+        class="carousel-item"
+        [class.active]="i === 0"
+      >
+        <div class="row row-cols-1 row-cols-md-3 g-4 cursor-pointer">
+          <div *ngFor="let blog of chunk" class="col">
+            <div class="card h-100">
+              <img
+                [src]="urlImage + blog.blogImage"
+                class="card-img-top"
+                alt="{{ blog.title }}"
+              />
+              <div class="card-body pb-0">
+                <h6 class="card-title">{{ blog.title }}</h6>
+                <p class="text-muted blog-description">
+                  {{ blog.description }}
+                </p>
+              </div>
+              <div
+                class="card-footer text-center d-flex justify-content-between align-items-center"
+              >
+                <button
+                  class="btn btn-dark"
+                  (click)="viewBlogDetail(blog.blogId)"
+                >
+                  Xem chi tiết
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <button
+      class="carousel-control-prev"
+      type="button"
+      data-bs-target="#blogCarousel"
+      data-bs-slide="prev"
+      [hidden]="chunkedBlogs.length <= 1"
+    >
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button
+      class="carousel-control-next"
+      type="button"
+      data-bs-target="#blogCarousel"
+      data-bs-slide="next"
+      [hidden]="chunkedBlogs.length <= 1"
+    >
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+</div>

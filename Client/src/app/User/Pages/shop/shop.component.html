@@ -1,0 +1,7 @@
+<div class="section">
+  <!-- <app-side-bar></app-side-bar>
+  <app-product-list></app-product-list> -->
+
+  <app-side-bar (filterChange)="onFilterChange($event)"></app-side-bar>
+  <app-product-list [filters]="filters"></app-product-list>
+</div>

@@ -1,0 +1,23 @@
+<div class="container blog-detail">
+  <div class="mb-4">
+    <h1 class="fw-bold">
+      {{ blog?.title }}
+    </h1>
+    <p class="card-text">
+      <small class="text-muted text-bold">
+        {{ blog?.createdDate | date : "dd-MM-yyyy HH:mm" }}
+      </small>
+    </p>
+    <p>
+      {{ blog?.description }}
+    </p>
+    <img
+      [src]="urlImage + blog?.blogImage"
+      class="img-fluid rounded mb-3"
+      alt="Pickleball Shoes"
+    />
+    <p>
+      {{ blog?.detail }}
+    </p>
+  </div>
+</div>

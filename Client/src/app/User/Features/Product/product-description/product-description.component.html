@@ -1,0 +1,36 @@
+<div class="container mt-4">
+  <ul class="nav nav-tabs d-flex justify-content-center">
+    <li class="nav-item">
+      <button
+        class="nav-link"
+        [class.active]="activeTab === 'description'"
+        (click)="activeTab = 'description'"
+      >
+        Mô tả
+      </button>
+    </li>
+    <li class="nav-item">
+      <button
+        class="nav-link"
+        [class.active]="activeTab === 'reviews'"
+        (click)="activeTab = 'reviews'"
+      >
+        Đánh giá
+      </button>
+    </li>
+  </ul>
+
+  <div class="tab-content mt-3">
+    <!-- Tab Description -->
+    <div *ngIf="activeTab === 'description'">
+      <p>
+        {{ product?.description }}
+      </p>
+    </div>
+
+    <!-- Tab Review -->
+    <div *ngIf="activeTab === 'reviews'">
+      <app-review [productId]="product?.productId"></app-review>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,27 @@
+<div class="container">
+    <h1>Add Blog</h1>
+
+    <form class="d-flex justify-content-center" (ngSubmit)="onFormSubmit()">
+        <div class="mt-2">
+            <div class="mt-3">
+                <label for="title" class="form-lable">Title</label>
+                <input type="text" id="title" name="title" class="form-control" [(ngModel)]="model.title" >
+            </div>
+            
+            <div class="mt-3">
+                <label for="description" class="form-lable">Description</label>
+                <textarea name="description" id="description" rows="5" class="form-control" [(ngModel)]="model.description"></textarea>
+            </div>
+            <div class="mt-3">
+                <label for="detail" class="form-lable">Detail</label>
+                <textarea name="detail" id="detail" rows="5" class="form-control" [(ngModel)]="model.detail"></textarea>
+            </div>
+            <div class="selectImage mt-3">
+                <input type="file" id="fileInput" accept="image/*" (change)="onFileSelected($event)">
+            </div>
+            <div class="mt-3">
+                <button class="btn-add-blog btn btn-primary" type="submit">Add blog</button>
+            </div>
+        </div>
+    </form>
+</div>

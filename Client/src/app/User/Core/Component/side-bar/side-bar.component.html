@@ -1,0 +1,47 @@
+<!-- code thêm  -->
+<div class="sidebar bg-light p-3">
+  <h5 class="text-center">Lọc sản phẩm</h5>
+
+  <!-- Lọc theo thương hiệu -->
+  <div class="mb-4">
+    <h6>Thương hiệu</h6>
+    <select class="form-select" (change)="onBrandChange($event)">
+      <option value="">Tất cả</option>
+      <option *ngFor="let brand of brands" [value]="brand.brandId">
+        {{ brand.brandName }}
+      </option>
+    </select>
+  </div>
+
+  <!-- Lọc theo kích cỡ -->
+  <div class="mb-4">
+    <h6>Kích cỡ</h6>
+    <div class="d-flex flex-wrap gap-2">
+      <button
+        class="btn btn-outline-dark btn-sm"
+        *ngFor="let size of sizes"
+        [class.active]="selectedSize === size"
+        (click)="onSizeClick(size)"
+      >
+        {{ size }}
+      </button>
+    </div>
+  </div>
+
+  <div class="mb-4">
+    <h6>Khoảng giá</h6>
+    <div class="form-check" *ngFor="let range of priceRanges">
+      <input
+        class="form-check-input"
+        type="radio"
+        name="priceFilter"
+        [checked]="
+          selectedPriceRange?.min === range.min &&
+          selectedPriceRange?.max === range.max
+        "
+        (click)="onPriceRangeChange(range)"
+      />
+      <label class="form-check-label">{{ range.label }}</label>
+    </div>
+  </div>
+</div>
