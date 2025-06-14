@@ -129,6 +129,26 @@ builder.Services.AddAuthentication(config =>
 
 var app = builder.Build();
 
+// // ======= PHẦN SEED ROLE =======
+// static async Task SeedRolesAsync(RoleManager<Role> roleManager)
+// {
+//     string[] roleNames = { "User", "Admin" };
+
+//     foreach (var roleName in roleNames)
+//     {
+//         if (!await roleManager.RoleExistsAsync(roleName))
+//         {
+//             await roleManager.CreateAsync(new Role { Name = roleName });
+//         }    
+//     }
+// }
+// using (var scope = app.Services.CreateScope())
+// {
+//     var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<Role>>();
+//     await SeedRolesAsync(roleManager);
+// }
+// // ======= HẾT PHẦN SEED ROLE =======
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -138,15 +158,14 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.UseAuthentication();
-app.UseAuthorization();
-
 app.UseCors(option =>
 {
     option.AllowAnyHeader();
     option.AllowAnyMethod();
     option.AllowAnyOrigin();
 });
+app.UseAuthentication();
+app.UseAuthorization();
 
 // app.UseStaticFiles(new StaticFileOptions
 // {

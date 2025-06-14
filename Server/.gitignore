@@ -4,6 +4,7 @@ obj/
 *.dll
 *.pdb
 *.exe
+*.md
 
 # User-specific files
 *.rsuser

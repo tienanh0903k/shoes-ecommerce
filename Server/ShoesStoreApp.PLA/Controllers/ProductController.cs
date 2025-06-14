@@ -64,7 +64,7 @@ namespace ShoesStoreApp.PLA.Controllers
         }
 
         // Get All Product
-        [Authorize(Roles = "Admin")]
+        // [Authorize(Roles = "Admin")]
         [HttpGet("Get-All-Product")]
         public async Task<IActionResult> GetAllProduct()
         {
