@@ -16,7 +16,7 @@ import { ProductService } from '../../product/service/product.service';
 export class AddBlogComponent {
   model: Blog;
   addBlogSub?: Subscription;
-  baseUrl: string = "https://localhost:7158/Images/Product/";
+  baseUrl: string = "/Images/Product/";
   fileImage: File|null = null;
 
   constructor(private router: Router, private blogService: BlogService, private productService: ProductService){

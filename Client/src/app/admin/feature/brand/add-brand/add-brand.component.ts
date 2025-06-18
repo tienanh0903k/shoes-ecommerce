@@ -16,7 +16,7 @@ export class AddBrandComponent {
   brand: BrandViewModel;
   addBrandSubscription?: Subscription;
   fileImage: File | null = null;
-  baseUrl: string = '/Images/Brand/';
+  baseUrl: string = '/Images/Product/';
   constructor(private brandService: BrandService, private router: Router) {
     this.brand = {
       brandName: '',

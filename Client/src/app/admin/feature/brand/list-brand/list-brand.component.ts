@@ -4,7 +4,6 @@ import { Observable, Subscription } from 'rxjs';
 import { Brand } from '../model/brand';
 import { Router } from '@angular/router';
 import { BrandService } from '../service/brand-service.service';
-import { IMG_URL } from '../../../../app.config';
 
 @Component({
   selector: 'app-list-brand',
@@ -13,7 +12,7 @@ import { IMG_URL } from '../../../../app.config';
   styleUrl: './list-brand.component.css',
 })
 export class ListBrandComponent {
-  urlImage: string = `${IMG_URL}`;
+  urlImage: string = `https://localhost:7158`;
   brands$?: Observable<Brand[]>;
   brandsSub?: Subscription;
 

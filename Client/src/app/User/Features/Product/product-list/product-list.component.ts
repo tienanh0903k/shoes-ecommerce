@@ -41,6 +41,7 @@ export class ProductListComponent implements OnInit {
     };
     this.productService.getFilteredProducts(filter).subscribe((response) => {
       this.products = response.items;
+      console.log(this.products);
       this.totalPages = response.totalPages;
     });
   }

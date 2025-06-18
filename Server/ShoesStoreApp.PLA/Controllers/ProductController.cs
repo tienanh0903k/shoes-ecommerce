@@ -31,7 +31,7 @@ namespace ShoesStoreApp.PLA.Controllers
         }
 
         // Upload Image Product
-        [Authorize(Roles = "Admin")]
+        // [Authorize(Roles = "Admin")]
         [HttpPost("Upload-Image")]
         public async Task<IActionResult> UploadImage(IFormFile file)
         {

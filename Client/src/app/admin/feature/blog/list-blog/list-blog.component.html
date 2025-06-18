@@ -15,7 +15,7 @@
                 <th>Action</th>
             </tr>
             <tr *ngFor="let blog of blogs">
-                <td><img src="{{blog.blogImage}}" alt=""></td>
+                <td><img src="{{urlImage + blog.blogImage}}" alt=""></td>
                 <td>{{blog.title}}</td>
                 <td class="action">
                     <button class="btn btn-primary" (click)="updateBlog(blog.blogId)">Update</button>

@@ -15,6 +15,7 @@ export class ListBlogComponent {
 
   blogs$?: Observable<Blog[]>
   blogSub?: Subscription;
+  urlImage: string = `https://localhost:7158`;
 
   constructor(private router: Router, private blogService: BlogService) {
 

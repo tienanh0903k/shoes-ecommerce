@@ -16,7 +16,7 @@ import { Cart } from '../../../Features/cart/models/Cart.model';
   styleUrl: './header.component.css',
 })
 export class HeaderComponent implements OnInit, OnDestroy {
-  urlImage: string = `${IMG_URL}`;
+  urlImage: string = `https://localhost:7158`;
   user: User | null = null;
   userId: string | null = null;
 

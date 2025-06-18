@@ -26,36 +26,52 @@ namespace ShoesStoreApp.PLA.Controllers
         }
 
         [Authorize(Roles = "Admin")]
-        [HttpPost("Upload-Image")]
-        public async Task<IActionResult> UploadImage(IFormFile file)
+[HttpPost("Upload-Image")]
+public async Task<IActionResult> UploadImage(IFormFile file)
+{
+    try
+    {
+        if (file == null || file.Length == 0)
         {
-            try
-            {
-                if (file == null || file.Length == 0)
-                {
-                    return BadRequest("No file uploaded or file is empty.");
-                }
-
-                _imageService.ValidateFileUpload(file);
-
-                var fileName = Path.GetFileNameWithoutExtension(file.FileName);
-                var fileExtension = Path.GetExtension(file.FileName).ToLower();
-                var localPath = Path.Combine(_webHostEnvironment.ContentRootPath, "Images", "Brand", $"{fileName}{fileExtension}");
-
-                using (var stream = new FileStream(localPath, FileMode.Create))
-                {
-                    await file.CopyToAsync(stream);
-                }
-
-                var uploadedImage = await _imageService.SaveImageBrandToDatabaseAsync(fileName, fileExtension);
-
-                return Ok(uploadedImage);
-            }
-            catch (ArgumentException ex)
-            {
-                return BadRequest(new { Message = ex.Message });
-            }
+            return BadRequest("No file uploaded or file is empty.");
         }
+
+        _imageService.ValidateFileUpload(file);
+
+        var fileName = Path.GetFileNameWithoutExtension(file.FileName);
+        var fileExtension = Path.GetExtension(file.FileName).ToLower();
+
+        // Tạo path thư mục Brand
+        var imagesFolder = Path.Combine(_webHostEnvironment.ContentRootPath, "Images", "Brand");
+
+        // Tạo thư mục nếu chưa tồn tại
+        if (!Directory.Exists(imagesFolder))
+        {
+            Directory.CreateDirectory(imagesFolder);
+        }
+
+        var localPath = Path.Combine(imagesFolder, $"{fileName}{fileExtension}");
+
+        using (var stream = new FileStream(localPath, FileMode.Create))
+        {
+            await file.CopyToAsync(stream);
+        }
+
+        var uploadedImage = await _imageService.SaveImageBrandToDatabaseAsync(fileName, fileExtension);
+
+        return Ok(uploadedImage);
+    }
+    catch (ArgumentException ex)
+    {
+        return BadRequest(new { Message = ex.Message });
+    }
+    catch (Exception ex)
+    {
+        // Để debug lỗi khác ngoài ArgumentException
+        return StatusCode(500, new { Message = "Internal server error", Detail = ex.Message });
+    }
+}
+
 
         [HttpGet("get-all-brand")]
         public async Task<IActionResult> GetAllBrand()
