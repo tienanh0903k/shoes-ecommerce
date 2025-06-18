@@ -1,0 +1,11 @@
+bin
+obj
+.vscode
+.git
+.gitignore
+*.md
+*.user
+*.suo
+Dockerfile
+docs.md
+command_run_project.bat
