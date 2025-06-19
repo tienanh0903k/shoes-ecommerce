@@ -1,0 +1,48 @@
+version: '3.8'
+
+services:
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: shoesstore-db
+    environment:
+      SA_PASSWORD: "StrongPassword123!"
+      ACCEPT_EULA: "Y"
+    ports:
+      - "1433:1433"
+    volumes:
+      - sql_data:/var/opt/mssql
+    networks:
+      - shoesstore-net
+
+  backend:
+    build:
+      context: ./Server
+      dockerfile: Dockerfile
+    ports:
+      - "5179:5179"
+    depends_on:
+      - sqlserver
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+    container_name: shoesstore-api
+    networks:
+      - shoesstore-net
+
+  frontend:
+    build:
+      context: ./Client
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    container_name: shoesstore-client
+    networks:
+      - shoesstore-net
+
+volumes:
+  sql_data:
+
+networks:
+  shoesstore-net:
+    driver: bridge
