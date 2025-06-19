@@ -4,6 +4,8 @@ WORKDIR /app
 
 # Copy toàn bộ source code
 COPY . .
+COPY ShoesStoreApp.PLA/appsettings.json ./appsettings.json
+
 
 # Restore & publish project
 RUN dotnet restore "./ShoesStoreApp.PLA/ShoesStoreApp.PLA.csproj"
