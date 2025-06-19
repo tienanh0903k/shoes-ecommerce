@@ -33,7 +33,7 @@ services:
       context: ./Client
       dockerfile: Dockerfile
     ports:
-      - "80:80"
+      - "8080:80"
     depends_on:
       - backend
     container_name: shoesstore-client
