@@ -163,6 +163,7 @@ app.UseCors(option =>
     option.AllowAnyMethod();
     option.AllowAnyOrigin();
 });
+
 app.UseAuthentication();
 app.UseAuthorization();
 
