@@ -1,16 +1,42 @@
-// ... các using ở đầu file ...
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.FileProviders;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
+using ShoesStoreApp.BLL.Services.AuthenticationService;
+using ShoesStoreApp.BLL.Services.BlogService;
+using ShoesStoreApp.BLL.Services.BrandService;
+
+using ShoesStoreApp.BLL.Services.CartService;
+
+
+using ShoesStoreApp.BLL.Services.SizeService;
+
+using ShoesStoreApp.BLL.Services.Image;
+using ShoesStoreApp.BLL.Services.ProductService;
+
+
+using ShoesStoreApp.DAL.Data;
+using ShoesStoreApp.DAL.Infrastructure;
+using ShoesStoreApp.DAL.Models;
+using System.Text;
+using ShoesStoreApp.BLL.Services.Custumer;
+
+using ShoesStoreApp.BLL.Services.PaymentService;
+using ShoesStoreApp.BLL.ViewModels.Payment;
+
+using ShoesStoreApp.BLL.Services.ReviewService;
+
 
 var builder = WebApplication.CreateBuilder(args);
+// payment
 
-// ===============================
-// ĐĂNG KÝ CÁC SERVICE (builder.Services.Add... )
-// TẤT CẢ CÁC builder.Services.Add... PHẢI NẰM Ở ĐÂY,
-// TRƯỚC DÒNG `var app = builder.Build();`
-// ===============================
-
-// Payment
 builder.Services.AddScoped<IPaymentService, PaymentService>();
 builder.Services.Configure<MomoOptionModel>(builder.Configuration.GetSection("MomoAPI"));
+
+
+// Add services to the container.
 
 builder.Services.AddControllers();
 builder.Services.AddHttpContextAccessor();
@@ -33,19 +59,18 @@ builder.Services.AddSwaggerGen(c =>
     });
 
     c.AddSecurityRequirement(new OpenApiSecurityRequirement
-    {
-        {
-            new OpenApiSecurityScheme
-            {
-                Reference = new OpenApiReference
-                {
-                    Type = ReferenceType.SecurityScheme,
-                    Id = "Bearer"
-                }
-            },
-            new string[] {}
-        }
-    });
+                {{
+                          new OpenApiSecurityScheme
+                          {
+                              Reference = new OpenApiReference
+                              {
+                                  Type = ReferenceType.SecurityScheme,
+                                  Id = "Bearer"
+                              }
+                          },
+                         new string[] {}
+                    }
+                });
 });
 
 builder.Services.AddDbContext<ShoesStoreAppDbContext>(options =>
@@ -59,38 +84,22 @@ builder.Services.AddScoped<IBrandService, BrandService>();
 builder.Services.AddScoped<IBlogService, BlogService>();
 builder.Services.AddScoped<ICartItemService, CartItemService>();
 builder.Services.AddScoped<ICartService, CartService>();
+
 builder.Services.AddScoped<ISizeSrevice, SizeService>();
+
 builder.Services.AddScoped<IImageService, ImageService>();
 builder.Services.AddScoped<IProductService, ProductService>();
+
 builder.Services.AddScoped<IPaymentMethodService, PaymentMethodService>();
+
 builder.Services.AddScoped<IReviewService, ReviewService>();
+
+builder.Services.AddScoped<IPaymentService, PaymentService>();
+
 builder.Services.AddScoped<IOrderService, OrderService>();
 builder.Services.AddScoped<IOrderItemService, OrderItemService>();
-builder.Services.AddScoped<IUserService, UserService>(); // Thêm nếu cần ShoesStoreApp.BLL.Services.CustomerService
+builder.Services.AddScoped<IUserService, UserService>();
 
-// ====================================================================
-// CẤU HÌNH CORS POLICY (ĐÚNG VỊ TRÍ!)
-// PHẢI NẰM TRONG KHỐI builder.Services.Add...
-// TRƯỚC DÒNG `var app = builder.Build();`
-// ====================================================================
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy("MyCorsPolicy", // Tên chính sách bạn sẽ dùng trong app.UseCors
-        policyBuilder =>
-        {
-            policyBuilder.WithOrigins(
-                                      "http://tientienh2003mylove.top", // Domain bạn đang dùng
-                                      "http://your_vps_ip",            // Địa chỉ IP của VPS nếu bạn truy cập bằng IP (thay your_vps_ip bằng IP thật)
-                                      "http://your_vps_ip:80",         // Nếu frontend chạy trên cổng 80 của VPS
-                                      "http://your_vps_ip:8080",       // Nếu frontend chạy trên cổng 8080 của VPS
-                                      "http://localhost:8080",         // Nếu bạn test frontend cục bộ
-                                      "http://localhost:4200"          // Nếu bạn test frontend Angular cục bộ
-                                     )
-                       .AllowAnyHeader()
-                       .AllowAnyMethod();
-        });
-});
-// ====================================================================
 
 builder.Services.AddIdentity<User, Role>()
     .AddEntityFrameworkStores<ShoesStoreAppDbContext>()
@@ -117,39 +126,52 @@ builder.Services.AddAuthentication(config =>
         };
     });
 
-// ====================================================================
-// ĐOẠN NÀY ĐÁNH DẤU KẾT THÚC PHẦN `builder.Services.Add...`
-// KHÔNG THÊM BẤT KỲ builder.Services.Add... NÀO SAU DÒNG NÀY
-// ====================================================================
+
 var app = builder.Build();
 
-// ====================================================================
-// CẤU HÌNH HTTP REQUEST PIPELINE (app.Use...)
-// ====================================================================
+// // ======= PHẦN SEED ROLE =======
+// static async Task SeedRolesAsync(RoleManager<Role> roleManager)
+// {
+//     string[] roleNames = { "User", "Admin" };
 
-// Phần Seed Role (Nếu không cần, hãy để comment hoặc xóa)
-// static async Task SeedRolesAsync(RoleManager<Role> roleManager) { ... }
-// using (var scope = app.Services.CreateScope()) { ... }
+//     foreach (var roleName in roleNames)
+//     {
+//         if (!await roleManager.RoleExistsAsync(roleName))
+//         {
+//             await roleManager.CreateAsync(new Role { Name = roleName });
+//         }    
+//     }
+// }
+// using (var scope = app.Services.CreateScope())
+// {
+//     var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<Role>>();
+//     await SeedRolesAsync(roleManager);
+// }
+// // ======= HẾT PHẦN SEED ROLE =======
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
+
     app.UseSwagger();
     app.UseSwaggerUI();
-}
+
 
 // app.UseHttpsRedirection();
 
-// QUAN TRỌNG: UseRouting PHẢI NẰM TRƯỚC UseCors
-app.UseRouting();
-
-// KÍCH HOẠT CORS MIDDLEWARE
-app.UseCors("MyCorsPolicy"); // Sử dụng tên chính sách bạn đã định nghĩa ở trên
-
+app.UseCors(option =>
+{
+    option.AllowAnyHeader();
+    option.AllowAnyMethod();
+    option.AllowAnyOrigin();
+});
 app.UseAuthentication();
 app.UseAuthorization();
 
-// Cấu hình Static Files (cho ảnh)
+// app.UseStaticFiles(new StaticFileOptions
+// {
+//     FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "Images")),
+//     RequestPath = "/Images"
+// });
+
 var imagesPath = Path.Combine(Directory.GetCurrentDirectory(), "Images");
 if (!Directory.Exists(imagesPath))
 {
@@ -160,6 +182,8 @@ app.UseStaticFiles(new StaticFileOptions
     FileProvider = new PhysicalFileProvider(imagesPath),
     RequestPath = "/Images"
 });
+
+
 
 app.MapControllers();
 
