@@ -157,12 +157,26 @@ var app = builder.Build();
 
 // app.UseHttpsRedirection();
 
-app.UseCors(option =>
+builder.Services.AddCors(options =>
 {
-    option.AllowAnyHeader();
-    option.AllowAnyMethod();
-    option.AllowAnyOrigin();
+    options.AddPolicy("MyCorsPolicy", // Tên chính sách bạn sẽ dùng trong app.UseCors
+        policyBuilder =>
+        {
+            // Cho phép từ các nguồn gốc cụ thể
+            // THAY THẾ bằng địa chỉ IP/domain TRUY CẬP frontend của bạn
+            policyBuilder.WithOrigins(
+                                      "http://tientienh2003mylove.top", // Domain bạn đang dùng
+                                      "http://your_vps_ip",            // Địa chỉ IP của VPS nếu bạn truy cập bằng IP (thay your_vps_ip bằng IP thật)
+                                      "http://your_vps_ip:80",         // Nếu frontend chạy trên cổng 80 của VPS (thay your_vps_ip bằng IP thật)
+                                      "http://your_vps_ip:8080",       // Nếu frontend chạy trên cổng 8080 của VPS (thay your_vps_ip bằng IP thật)
+                                      "http://localhost:8080",         // Nếu bạn test frontend cục bộ
+                                      "http://localhost:4200"          // Nếu bạn test frontend Angular cục bộ
+                                     )
+                       .AllowAnyHeader()    // Cho phép tất cả các header
+                       .AllowAnyMethod();   // Cho phép tất cả các phương thức HTTP
+        });
 });
+app.UseCors("MyCorsPolicy");
 app.UseAuthentication();
 app.UseAuthorization();
 
