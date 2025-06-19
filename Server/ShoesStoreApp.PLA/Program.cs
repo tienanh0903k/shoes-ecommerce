@@ -127,6 +127,18 @@ builder.Services.AddAuthentication(config =>
     });
 
 
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowSpecificOrigin", policy =>
+    {
+        policy.WithOrigins("http://tienanh123.vmylove.top") // URL frontend của bạn
+              .AllowAnyMethod()
+              .AllowAnyHeader()
+              .AllowCredentials(); // Nếu cần sử dụng cookie hoặc token
+    });
+});
+
 var app = builder.Build();
 
 // // ======= PHẦN SEED ROLE =======
@@ -154,15 +166,12 @@ var app = builder.Build();
     app.UseSwagger();
     app.UseSwaggerUI();
 
+    app.UseCors("AllowSpecificOrigin");
 
 // app.UseHttpsRedirection();
 
-app.UseCors(option =>
-{
-    option.AllowAnyHeader();
-    option.AllowAnyMethod();
-    option.AllowAnyOrigin();
-});
+
+
 
 app.UseAuthentication();
 app.UseAuthorization();
