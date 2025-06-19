@@ -4,6 +4,7 @@ import { Blog } from '../models/blog.model';
 import { Observable, Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 import { BlogService } from '../services/blog.service';
+import { IMG_URL } from '../../../../app.config';
 
 @Component({
   selector: 'app-list-blog',
@@ -15,7 +16,7 @@ export class ListBlogComponent {
 
   blogs$?: Observable<Blog[]>
   blogSub?: Subscription;
-  urlImage: string = `https://localhost:7158`;
+  urlImage: string = `${IMG_URL}`;
 
   constructor(private router: Router, private blogService: BlogService) {
 

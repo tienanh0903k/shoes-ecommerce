@@ -5,7 +5,6 @@ import { CommonModule } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
 import { IMG_URL } from '../../../../app.config';
 import { CartService } from '../../../Features/cart/service/cart.service';
-import { CartItem } from '../../../Features/cart/models/CartItem.model';
 import { Observable, Subscription } from 'rxjs';
 import { Cart } from '../../../Features/cart/models/Cart.model';
 
@@ -16,7 +15,7 @@ import { Cart } from '../../../Features/cart/models/Cart.model';
   styleUrl: './header.component.css',
 })
 export class HeaderComponent implements OnInit, OnDestroy {
-  urlImage: string = `https://localhost:7158`;
+  urlImage: string = `${IMG_URL}`;
   user: User | null = null;
   userId: string | null = null;
 

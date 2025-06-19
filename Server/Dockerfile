@@ -10,5 +10,8 @@ RUN dotnet publish "./ShoesStoreApp.PLA/ShoesStoreApp.PLA.csproj" -c Release -o 
 FROM base AS final
 WORKDIR /app
 COPY --from=build /app/publish .
-ENTRYPOINT ["dotnet", "ShoesStoreApp.PLA.dll"]
+
+ENV ASPNETCORE_URLS=http://+:80
+
 EXPOSE 80
+ENTRYPOINT ["dotnet", "ShoesStoreApp.PLA.dll"]
