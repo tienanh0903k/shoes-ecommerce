@@ -130,14 +130,16 @@ builder.Services.AddAuthentication(config =>
 
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowSpecificOrigin", policy =>
+    options.AddDefaultPolicy(policy =>
     {
-        policy.WithOrigins("http://tienanh123.vmylove.top") // URL frontend của bạn
-              .AllowAnyMethod()
+        policy.WithOrigins("http://160.191.244.41:8080")
               .AllowAnyHeader()
-              .AllowCredentials(); // Nếu cần sử dụng cookie hoặc token
+              .AllowAnyMethod();
     });
 });
+
+app.UseCors();
+
 
 var app = builder.Build();
 
