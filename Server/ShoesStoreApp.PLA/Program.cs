@@ -127,20 +127,6 @@ builder.Services.AddAuthentication(config =>
     });
 
 
-
-builder.Services.AddCors(options =>
-{
-    options.AddDefaultPolicy(policy =>
-    {
-        policy.WithOrigins("http://160.191.244.41:8080")
-              .AllowAnyHeader()
-              .AllowAnyMethod();
-    });
-});
-
-app.UseCors();
-
-
 var app = builder.Build();
 
 // // ======= PHẦN SEED ROLE =======
@@ -168,9 +154,24 @@ var app = builder.Build();
     app.UseSwagger();
     app.UseSwaggerUI();
 
-    app.UseCors("AllowSpecificOrigin");
 
 // app.UseHttpsRedirection();
+
+
+
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(policy =>
+    {
+        policy.WithOrigins("http://160.191.244.41:8080")
+              .AllowAnyHeader()
+              .AllowAnyMethod();
+    });
+});
+
+app.UseCors();
+
+
 
 
 
