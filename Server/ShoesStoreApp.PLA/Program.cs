@@ -75,8 +75,12 @@ builder.Services.AddSwaggerGen(c =>
 
 builder.Services.AddDbContext<ShoesStoreAppDbContext>(options =>
 {
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+    options.UseSqlServer(
+        builder.Configuration.GetConnectionString("DefaultConnection"),
+        sqlOptions => sqlOptions.EnableRetryOnFailure()
+    );
 });
+
 
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
