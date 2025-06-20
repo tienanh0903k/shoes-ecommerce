@@ -44,7 +44,7 @@ Generated_Code/
 project.lock.json
 
 # Configuration
-appsettings*.json
+# appsettings*.json
 
 # Database files
 *.mdf
